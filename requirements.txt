@@ -1,0 +1,6 @@
+eventlet
+Flask
+gunicorn
+pillow
+psycopg2
+SQLAlchemy
