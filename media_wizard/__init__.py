@@ -15,7 +15,9 @@ def create_app():
 
     @app.route('/')
     def index():
-        return 'Hello'
+        bindings = {}
+
+        return flask.render_template('index.html', bindings=bindings)
 
     def parse_image(filename):
         ext = filename.split('.')[-1].lower()
