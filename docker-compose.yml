@@ -5,11 +5,11 @@ web:
   ports:
     - "${APP_PORT}:80"
   volumes:
-    - ./logs:/code/logs
-    - ./media_wizard:/code/media_wizard
+    - ./:/code
     - ./test_data/:/test_data
   environment:
     - ENV=$ENV
     - APP_PORT=$APP_PORT
     - LOG_FILE=logs/mw.log
     - LOG_LEVEL=DEBUG
+    - FLASK_DEBUG=1
