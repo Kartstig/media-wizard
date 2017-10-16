@@ -30,19 +30,20 @@ def create_app():
 
     @app.route('/action/scan', methods=['POST'])
     def scan():
-        file_count = 0
-        dir_count = 0
-        path = flask.request.form['path']
-        app.logger.debug(path)
+        content = flask.request.get_json()
+        path = content['path']
+        data = {}
         for dirName, subdirList, fileList in os.walk(path):
-            app.logger.debug(f'Found directory: {dirName}')
-            dir_count += 1
+            data[dirName] = {
+                'files': [],
+                'count': 0
+            }
             for fname in fileList:
                 photo = parse_image(fname)
                 if photo:
-                    app.logger.debug(f'\t{fname}')
-                    file_count += 1
-        return flask.jsonify(dirs=dir_count, files=file_count)
+                    data[dirName]['count'] += 1
+                    data[dirName]['files'].append(fname)
+        return flask.jsonify(results=data)
 
 
     @app.errorhandler(404)
