@@ -1,0 +1,29 @@
+{
+  "name": "media-wizard",
+  "version": "1.0.0",
+  "description": "A media management tool",
+  "scripts": {
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kartstig/media-wizard.git"
+  },
+  "author": "Herman Singh <kartstig@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Kartstig/media-wizard/issues"
+  },
+  "homepage": "https://github.com/Kartstig/media-wizard#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "webpack": "^3.7.1"
+  }
+}
