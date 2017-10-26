@@ -1,19 +1,19 @@
 import React from 'react'
 import axios from 'axios'
+import {mapObject} from 'underscore'
+
+import Directory from './Directory'
 
 class Actions extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       inputPath: '',
-      results: {}
+      results: []
     }
     this.handleScan = this.handleScan.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
-  }
-
-  componentDidMount() {
-    console.log('mounted')
+    this.transformData = this.transformData.bind(this)
   }
 
   handleScan(event) {
@@ -25,8 +25,9 @@ class Actions extends React.Component {
         }
       })
       .then((response) => {
-        console.log(response)
-        this.setState({results: response.data.results})
+        const data = this.transformData(response.data.results)
+        console.log(data)
+        this.setState({results: data})
       })
       .catch( (error) => {
         console.log(error)
@@ -37,8 +38,21 @@ class Actions extends React.Component {
     this.setState({inputPath: event.target.value})
   }
 
+  transformData(data) {
+    var collection = []
+    for(var directoryName in data) {
+      collection.push({
+        "name": directoryName,
+        "files": data[directoryName]["files"],
+        "count": data[directoryName]["count"]
+      })
+    }
+    return collection
+  }
+
+  render
+
   render() {
-    const data = this.state.data
     return (
       <div className="row-fluid">
         <h1>Actions</h1>
@@ -58,6 +72,16 @@ class Actions extends React.Component {
           </form>
         </div>
         <div className="col-md-8">
+          <div id="directory_view">
+            {this.state.results.map(r =>
+              (<Directory
+                key={r.name}
+                name={r.name}
+                files={r.files}
+                count={r.count}
+              />)
+            )}
+          </div>
         </div>
       </div>
     )

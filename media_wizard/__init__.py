@@ -34,13 +34,14 @@ def create_app():
         path = content['path']
         data = {}
         for dirName, subdirList, fileList in os.walk(path):
-            data[dirName] = {
-                'files': [],
-                'count': 0
-            }
             for fname in fileList:
                 photo = parse_image(fname)
                 if photo:
+                    if not dirName in data:
+                        data[dirName] = {
+                            'files': [],
+                            'count': 0
+                        }
                     data[dirName]['count'] += 1
                     data[dirName]['files'].append(fname)
         return flask.jsonify(results=data)
